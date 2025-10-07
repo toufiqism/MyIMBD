@@ -17,6 +17,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.tofiq.myimdb.data.model.domain.MovieResponse
+import com.tofiq.myimdb.ui.screens.AddMovieScreen
 import com.tofiq.myimdb.ui.screens.HomeScreen
 import com.tofiq.myimdb.ui.screens.MovieDetailsScreen
 import com.tofiq.myimdb.ui.screens.SplashScreen
@@ -75,6 +76,18 @@ fun MyIMDBApp(movieViewModel: MovieViewModel) {
                 },
                 onWishlistClick = {
                     navController.navigate("wishlist")
+                },
+                onAddMovieClick = {
+                    navController.navigate("add_movie")
+                }
+            )
+        }
+
+        composable("add_movie") {
+            AddMovieScreen(
+                movieViewModel = movieViewModel,
+                onMovieAdded = {
+                    navController.popBackStack()
                 }
             )
         }

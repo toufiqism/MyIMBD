@@ -24,6 +24,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Star
@@ -36,6 +37,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -116,7 +118,8 @@ fun ErrorState(
 fun HomeScreen(
     movieViewModel: MovieViewModel,
     onMovieClick: (com.tofiq.myimdb.data.model.domain.MovieResponse.Movie) -> Unit,
-    onWishlistClick: () -> Unit
+    onWishlistClick: () -> Unit,
+    onAddMovieClick: () -> Unit
 ) {
     val movieState by movieViewModel.movieState.collectAsState()
     val isLoading by movieViewModel.isLoading.collectAsState()
@@ -132,6 +135,11 @@ fun HomeScreen(
     var showFilterDropdown by remember { mutableStateOf(false) }
 
     Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = onAddMovieClick) {
+                Icon(Icons.Default.Add, contentDescription = "Add Movie")
+            }
+        },
         topBar = {
             CommonAppBar(
                 title = "MyIMDB Movies",
