@@ -285,4 +285,12 @@ class MovieViewModel @Inject constructor(
     fun toggleGridView() {
         _isGridView.value = !_isGridView.value
     }
+
+    fun addMovie(movie: MovieResponse.Movie) {
+        viewModelScope.launch {
+            movieRepository.addMovie(movie)
+            // Refresh the movie list after adding a new one
+            refreshMovies()
+        }
+    }
 } 

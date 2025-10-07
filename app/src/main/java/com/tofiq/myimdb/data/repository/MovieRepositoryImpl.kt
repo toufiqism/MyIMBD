@@ -1,5 +1,6 @@
 package com.tofiq.myimdb.data.repository
 
+import android.util.Log
 import com.google.gson.Gson
 import com.tofiq.myimdb.data.local.dao.MovieEntityDAO
 import com.tofiq.myimdb.data.local.dao.WishlistEntityDAO
@@ -139,6 +140,26 @@ class MovieRepositoryImpl @Inject constructor(
             wishlistDao.getWishlistCount()
         } catch (e: Exception) {
             0
+        }
+    }
+
+    override suspend fun addMovie(movie: MovieResponse.Movie) {
+        try {
+            val localMovie = movieDao.getMovie()
+            val movieResponse = if (localMovie != null) {
+                Gson().fromJson(localMovie.response, MovieResponse::class.java)
+            } else {
+                MovieResponse(movies = emptyList())
+            }
+
+            val updatedMovies = movieResponse.movies?.toMutableList() ?: mutableListOf()
+            updatedMovies.add(0, movie)
+            val updatedResponse = movieResponse.copy(movies = updatedMovies)
+
+            val movieEntity = MovieEntity(response = Gson().toJson(updatedResponse))
+            movieDao.insertMovie(movieEntity)
+        } catch (e: Exception) {
+            Log.e("MovieRepository", "Failed to add movie", e)
         }
     }
 }

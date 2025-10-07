@@ -13,4 +13,5 @@ interface MovieRepository {
     suspend fun removeFromWishlist(movieId: Int)
     suspend fun isMovieInWishlist(movieId: Int): Boolean
     suspend fun getWishlistCount(): Int
+    suspend fun addMovie(movie: MovieResponse.Movie)
 }
