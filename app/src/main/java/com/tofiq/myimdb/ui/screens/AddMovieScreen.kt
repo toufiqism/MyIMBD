@@ -103,7 +103,11 @@ fun AddMovieScreen(
                             title = title,
                             year = year,
                             posterUrl = posterUrl,
-                            genres = genreList
+                            genres = genreList,
+                            actors = "",
+                            director = "",
+                            plot = "",
+                            runtime = "",
                         )
                         movieViewModel.addMovie(newMovie)
                         onMovieAdded()

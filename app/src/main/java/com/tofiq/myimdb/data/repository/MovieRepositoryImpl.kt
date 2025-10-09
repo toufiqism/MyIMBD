@@ -149,7 +149,7 @@ class MovieRepositoryImpl @Inject constructor(
             val movieResponse = if (localMovie != null) {
                 Gson().fromJson(localMovie.response, MovieResponse::class.java)
             } else {
-                MovieResponse(movies = emptyList())
+                MovieResponse(movies = emptyList(), genres = emptyList())
             }
 
             val updatedMovies = movieResponse.movies?.toMutableList() ?: mutableListOf()
