@@ -2,7 +2,7 @@ name: Android Stage Build
 
 on:
   push:
-    branches: [ "stage" ]  # 👈 only triggers when you push to 'stage'
+    branches: [ "stage" ]  # Trigger only when pushing to the stage branch
 
 jobs:
   build:
@@ -23,10 +23,17 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build release APK
-        run: ./gradlew assembleRelease  # or assembleDebug if you prefer
+        run: ./gradlew assembleRelease  # or assembleDebug
+
+      - name: Create apk directory
+        run: mkdir -p apk
+
+      - name: Move generated APK to apk folder
+        run: |
+          cp app/build/outputs/apk/release/app-release.apk apk/app-release.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: app-release-apk
-          path: app/build/outputs/apk/release/app-release.apk
+          name: stage-apk
+          path: apk/app-release.apk
