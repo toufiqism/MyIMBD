@@ -15,6 +15,7 @@ A modern Android application built with Jetpack Compose that allows users to bro
 
 ### Wishlist Implementation
 
+
 The wishlist feature has been implemented using Room database for persistent storage:
 
 #### Database Components
